@@ -24,7 +24,7 @@ test("Redirection to Sign In Page", async({page})=>{
   await page.hover(".user-text");
   await page.click('a[href="/signin"]');
   const loginPage = page.locator('.login-header');
-  // use one of the below assertion 
+
   // await expect(page.url()).toContain("/signin");
   await expect(page.getByText('Existing Customer')).toBeVisible();
 })
