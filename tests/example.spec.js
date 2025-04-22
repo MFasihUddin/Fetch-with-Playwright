@@ -9,7 +9,7 @@ import { test, expect } from '@playwright/test';
 test.use({
   httpCredentials:{
     username: "storefront",
-    password: "KATUjwEny4Nya29u"
+    password: "fBYc2AZa9esN2b4C"
   }
 });
 
@@ -19,36 +19,35 @@ test("Verify the Page Title", async({page})=>{
   await expect(logo).toBeVisible();
 })
 
-test("Redirection to SIgn In Page", async({page})=>{
+test("Redirection to Sign In Page", async({page})=>{
   await page.goto('https://sfcc.petfoodking.com/');
   await page.hover(".user-text");
   await page.click('a[href="/signin"]');
   const loginPage = page.locator('.login-header');
   // use one of the below assertion 
-  await expect(page.url()).toContain("/signin");
-  // await expect(page.getByText('Existing Customer')).toBeVisible();
-
+  // await expect(page.url()).toContain("/signin");
+  await expect(page.getByText('Existing Customer')).toBeVisible();
 })
 
-
-
-// test("click on Get Started button", async({page})=>{
-//   await page.goto('https://playwright.dev/');
-//   await page.getByRole('link',{name: 'Get Started'}).click();
-//   await expect(page.getByRole('heading',{name: 'Installation'})).toBeVisible();
+//   test("Verify that is able to login", async({page})=>{
+//     await page.goto('https://sfcc.petfoodking.com/');
+//     await page.hover(".user-text");
+//     await page.click('a[href="/signin"]');
+//     await page.locator('#login-form-email').fill('ntest23@gmail.com');
+//     // email.fill('mansoor24test@gmail.com');
+//     await page.locator('#login-form-password').fill('Admin@123');
+//     page.locator('[title="login form"]').click();
+//     await page.waitForTimeout(3000);
+//     await expect(page.locator('.title-block')).toHaveText(/Welcome to Allivet!/);
 // })
 
-// test("click on .NET link", async({page})=>{
-//   await page.goto('https://playwright.dev/');
-//   await page.getByRole('link',{name: '.NET'}).click();
-// })
-
-// test('get started link', async ({ page }) => {
-//   await page.goto('https://playwright.dev/');
-
-//   // Click the get started link.
-//   await page.getByRole('link', { name: 'Get started' }).click();
-
-//   // Expects page to have a heading with the name of Installation.
-//   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-// });
+test("Verify that is able to login", async({page})=>{
+      await page.goto('https://sfcc.fetchrxtest.com');
+      await page.hover("#myaccount");
+      await page.click('a[href="/signin"]');
+      await page.fill('#login-form-email','ntest2@gmail.com');
+      await page.fill('#login-form-password','Admin@123');
+      await page.locator("button[title='login form']").click();
+      await page.waitForTimeout(3000);
+      await expect(page.locator("div[class='title-block']")).toHaveText(/We are happy to welcome you!/);
+  })
