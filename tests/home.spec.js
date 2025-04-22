@@ -14,32 +14,19 @@ test.use({
 });
 
 test("Verify the Page Title", async({page})=>{
-  await page.goto('https://sfcc.petfoodking.com/');
-  const logo = page.locator('.logo-home');
+  await page.goto('https://sfcc.fetchrxtest.com');
+  const logo = page.locator(".logo-home.logo-desktop");
   await expect(logo).toBeVisible();
 })
 
 test("Redirection to Sign In Page", async({page})=>{
-  await page.goto('https://sfcc.petfoodking.com/');
-  await page.hover(".user-text");
+  await page.goto('https://sfcc.fetchrxtest.com');
+  await page.hover("#myaccount");
   await page.click('a[href="/signin"]');
-  const loginPage = page.locator('.login-header');
-
-  // await expect(page.url()).toContain("/signin");
-  await expect(page.getByText('Existing Customer')).toBeVisible();
+  const loginPageContent = page.locator('p[class="returning-customer"]');
+  await expect(loginPageContent.getByText('Returning customer:')).toBeVisible();
 })
 
-//   test("Verify that is able to login", async({page})=>{
-//     await page.goto('https://sfcc.petfoodking.com/');
-//     await page.hover(".user-text");
-//     await page.click('a[href="/signin"]');
-//     await page.locator('#login-form-email').fill('ntest23@gmail.com');
-//     // email.fill('mansoor24test@gmail.com');
-//     await page.locator('#login-form-password').fill('Admin@123');
-//     page.locator('[title="login form"]').click();
-//     await page.waitForTimeout(3000);
-//     await expect(page.locator('.title-block')).toHaveText(/Welcome to Allivet!/);
-// })
 
 test("Verify that is able to login", async({page})=>{
       await page.goto('https://sfcc.fetchrxtest.com');
