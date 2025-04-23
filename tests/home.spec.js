@@ -1,10 +1,5 @@
-// @ts-check
 import { test, expect } from '@playwright/test';
 
-// test('to have title',async ({page})=>{
-//   await page.goto('https://sfcc.petfoodking.com/');
-//   await expect(page).toHaveTitle(/Playwright/);
-// })
 
 test.use({
   httpCredentials:{
@@ -27,8 +22,7 @@ test("Redirection to Sign In Page", async({page})=>{
   await expect(loginPageContent.getByText('Returning customer:')).toBeVisible();
 })
 
-
-test("Verify that is able to login", async({page})=>{
+test("Verify login functionlity", async({page})=>{
       await page.goto('https://sfcc.fetchrxtest.com');
       await page.hover("#myaccount");
       await page.click('a[href="/signin"]');
@@ -38,3 +32,20 @@ test("Verify that is able to login", async({page})=>{
       await page.waitForTimeout(3000);
       await expect(page.locator("div[class='title-block']")).toHaveText(/We are happy to welcome you!/);
   })
+
+test("Verify user can place an OTC order", async({page})=>{
+  await page.goto("https://sfcc.fetchrxtest.com");
+  await page.hover("#myaccount");
+  await page.click('a[href="/signin"]');
+  await page.fill('input[id="login-form-email"]', 'ntest2@gmail.com');
+  await page.fill('input[id="login-form-password"]', 'Admin@123');
+  await page.click('button[title="login form"]');
+  await page.fill('input[id="search-results"]', "52592");
+  await page.click("//a[@aria-label='Tomlyn Pill-Masker Cat, 4 oz']");
+  await page.click("//span[@class='add-to-cart-label']");
+  await page.click("//div[@class='cart-checkout-btn-wrapper']//a[@role='button'][normalize-space()='Checkout']");
+  await page.click("//button[normalize-space()='Continue to payment method']");
+  await page.click("//button[normalize-space()='Save and continue']");
+  await page.click("//button[normalize-space()='Place order >']");
+  await expect(page.locator('h2[normalize-space()="Thank you for your order!"]')).toBeVisible(); 
+})
